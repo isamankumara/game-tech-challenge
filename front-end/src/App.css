@@ -1,56 +1,266 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .Item:hover {
-  cursor: pointer;
-  background-color: gray;
+    cursor: pointer;
+    background-color: gray;
 }
 
 .selectedMode {
-  background-color: red;
+    /* background-color: red; */
 }
 
 .GameMode {
-  border: "1px solid red";
-   margin: "10px";
+    border: "1px solid red";
+    margin: "10px";
 }
 
 .selected-item {
-  background-color: green;
+    background-color: green;
+}
+
+/* 
+font-family: 'Bungee Inline', cursive;
+font-family: 'Roboto', sans-serif;
+font-family: 'Teko', sans-serif;
+ */
+
+/* GAME WINDOW STYLES */
+
+.App {
+    overflow: auto;
+    color: #cfcfcf;
+    min-height: 100vh;
+    max-width: 100vw;
+    background: #485563; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #09323c, #000); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #09323c, #000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.gameWindow {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+h2 {
+    margin: 20px auto 0 auto;
+    font-size: 32px;
+    font-family: "Bungee Inline", cursive;
+    font-weight: 400;
+    border: 5px solid #8b98ae;
+    border-radius: 25px 25px 0 0;
+    padding: 10px;
+    color: rgb(110, 224, 255);
+    background-color: #051231;
+    border-bottom: none;
+    text-shadow: 3px 3px 0 rgb(10, 11, 0);
+}
+
+.gameModeWrapper {
+    background-color: #0a2157;
+    border: 5px solid #8b98ae;
+    border-radius: 0 0 25px 25px;
+    border-top: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 4px 5px rgb(0, 0, 0);
+}
+
+.GameMode {
+    padding: 12px;
+    font-family: "Bungee Inline", cursive;
+    cursor: pointer;
+    font-size: 22px;
+    text-shadow: 3px 3px 0 rgb(8, 43, 93);
+    color: rgb(132, 147, 188);
+}
+.GameMode:hover {
+    color: #b5c0e6;
+}
+.GameMode.selectedMode {
+    color: rgb(255, 209, 5);
+}
+.playArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid #aebdd8;
+    border-radius: 25px;
+    margin: 20px 0;
+    overflow: hidden;
+    box-shadow: 0 4px 5px rgb(0, 0, 0);
+    background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+}
+.resultDisplay {
+    display: flex;
+    font-weight: 400;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid #aebdd8;
+    border-radius: 25px;
+    margin: 20px 0;
+    padding: 20px 0;
+    background-color: #004471;
+    font-family: "Teko", sans-serif;
+    text-transform: uppercase;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 5px rgb(0 0 0);
+    color: rgb(0 227 162);
+    text-shadow: 1px 1px 0 #000;
+}
+.resultDisplay span {
+}
+
+.player {
+    width: 50%;
+    border: none;
+    padding: 20px 4px;
+    font-size: 20px;
+    color: #0a2157;
+    text-shadow: 1px 1px 0 rgb(103, 222, 255);
+}
+h3 {
+    margin: 10px 0;
+    font-family: "Bungee Inline", cursive;
+    font-size: 28px;
+}
+.itemWrapper {
+    display: flex;
+    justify-content: center;
+}
+.itemWrapper > .Item {
+    /* flex-grow: 1;
+  flex-basis: 0;
+  min-width: 0; */
+    width: 52px;
+    height: 52px;
+    background-color: rgb(135, 206, 239);
+    border: 3px solid rgb(37, 46, 98);
+    color: #fff;
+    margin: 12px;
+    padding: 10px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    font-size: 0;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.player-left .itemWrapper > .Item:hover {
+    box-shadow: 0 0 16px rgb(178, 255, 252);
+}
+.player-right .itemWrapper > .Item:hover {
+    box-shadow: none;
+    cursor: default;
+}
+.itemWrapper > .rock-item {
+    background-image: url("./assets/images/icon_rock.png");
+}
+.itemWrapper > .paper-item {
+    background-image: url("./assets/images/icon_paper.png");
+}
+
+.itemWrapper > .scissors-item {
+    background-image: url("./assets/images/icon_scissors.png");
+}
+
+.player-left .itemWrapper > .rock-item,
+.player-left .itemWrapper > .paper-item,
+.player-left .itemWrapper > .scissors-item {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.itemWrapper > .Item.selected-item {
+    background-color: #df5cff;
+    color: rgb(15, 4, 75);
+    text-shadow: 1px 1px 0 rgb(236, 236, 236);
+}
+.points {
+    font-family: "Bungee Inline", cursive;
+    font-size: 16px;
+    font-weight: 400;
+    color: #61dafb;
+    padding: 15px;
+    background-color: rgb(26, 25, 54);
+    margin-top: 10px;
+    border-radius: 20px;
+    text-shadow: 3px 3px 0 rgb(10, 11, 0);
+}
+.points span {
+    font-size: 14px;
+    color: #eee;
+}
+.points h4 {
+    color: rgb(255, 209, 5);
+    font-size: 40px;
+    margin: 8px;
+    font-weight: 400;
+}
+hr {
+    border-color: #09323c;
+    border-width: 1px;
+}
+.gameActions {
+    font-family: "Teko", sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-shadow: none;
+    font-size: 28px;
+}
+.gameActions > div {
+    background-color: rgb(33, 35, 80);
+    padding: 8px 5px 5px 5px;
+    border-radius: 16px;
+    min-width: 120px;
+    line-height: 30px;
+    border: 3px solid rgb(82, 81, 101);
+}
+.gameActions > div:hover {
+    cursor: pointer;
+    color: rgb(255, 209, 5);
+    background-color: #000;
+    border-color: rgb(75, 126, 180);
+    font-weight: 700;
 }

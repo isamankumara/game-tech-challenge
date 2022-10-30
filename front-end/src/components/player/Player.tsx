@@ -33,7 +33,7 @@ const ItemOption = (props: ItemProps) => {
     return (
         <div
             onClick={clickEvent}
-            className={props.name === props.player.selection ? "Item selected-item" : "Item"}
+            className={props.name === props.player.selection ? props.name + "-item Item selected-item" : props.name + "-item Item"}
             style={{ border: "1px solid red", margin: "10px", padding: "10px" }}
         >
             {props.name}
@@ -46,14 +46,16 @@ export const Player = (props: IPlayerProps) => {
     const game = useSelector((state: GameType) => state.game);
     const player = props.playerType == PlayerType.PlayerOne ? game.playerOne : game.playerTwo;
     return (
-        <div style={{ border: "1px solid red", margin: "10px" }}>
+        <div>
             <div>{player.name}</div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div className="itemWrapper">
                 {options.map((item, index) => (
                     <ItemOption name={item} player={player} key={"item_key" + index} />
                 ))}
             </div>
-            <div>Points : {player.point}</div>
+            <div className="points">
+                <span>Points </span> <h4>{player.point}</h4>
+            </div>
         </div>
     );
 };

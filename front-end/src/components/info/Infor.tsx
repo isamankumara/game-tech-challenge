@@ -52,9 +52,9 @@ export const Info = () => {
 
     return (
         <>
-            <div>{game.message}</div>
+            <div className="resultDisplay">{game.message}</div>
             {game.mode === GameMode.ComputerToComputer && (
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <div className="gameActions" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {game.status != 3 && (
                         <>
                             <div data-testid={"callAutoStart"} onClick={autoStact} style={{ margin: 10 }}>

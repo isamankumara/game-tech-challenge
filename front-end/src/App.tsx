@@ -27,21 +27,20 @@ const Wrap = () => {
         });
 
         socket.on("send events", (res) => {
-            dispatch(gameSlice.actions.changeGameStatus({status: res.event}))
+            dispatch(gameSlice.actions.changeGameStatus({ status: res.event }));
         });
 
         socket.on("pass option", (res) => {
-            console.log(res.payload.player)
+            console.log(res.payload.player);
             var player = res.payload.player;
             player.playerType = 2;
-            dispatch(gameSlice.actions.userSelection({ selection: res.payload.selection, player: player , event: res.event}));
+            dispatch(gameSlice.actions.userSelection({ selection: res.payload.selection, player: player, event: res.event }));
 
             setTimeout(() => {
-                dispatch(gameSlice.actions.updateUserInteraction({stopUserInteraction: false,  event: res.event}));
+                dispatch(gameSlice.actions.updateUserInteraction({ stopUserInteraction: false, event: res.event }));
             }, 1000);
         });
 
-        
         return () => {
             socket.off("connect");
             socket.off("disconnect");
@@ -60,27 +59,29 @@ const Wrap = () => {
                 }, 2000);
             }
         }
-    },[game.stopUserInteraction]);
+    }, [game.stopUserInteraction]);
 
     return (
         <div className="App">
-            <div>
-                <div>Select the Type</div>
-                <div style={{ display: "flex", justifyContent: "space-around" }}>
-                    <PlayerMode mode={GameMode.UserToComputer}> As Player </PlayerMode>
-                    <PlayerMode mode={GameMode.ComputerToComputer}> As a Viewer </PlayerMode>
-                    <PlayerMode mode={GameMode.UserToUser}> User To User </PlayerMode>
-                </div>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="gameWindow">
                 <div>
-                    <Player playerType={PlayerType.PlayerOne} />
+                    <h2>Select the Type</h2>
+                    <div className="gameModeWrapper">
+                        <PlayerMode mode={GameMode.UserToComputer}> As Player </PlayerMode>
+                        <PlayerMode mode={GameMode.ComputerToComputer}> As a Viewer </PlayerMode>
+                        <PlayerMode mode={GameMode.UserToUser}> User To User </PlayerMode>
+                    </div>
                 </div>
-                <div>
-                    <Player playerType={PlayerType.PlayerTwo} />
+                <div className="playArea">
+                    <div className="player player-left">
+                        <Player playerType={PlayerType.PlayerOne} />
+                    </div>
+                    <div className="player player-right">
+                        <Player playerType={PlayerType.PlayerTwo} />
+                    </div>
                 </div>
+                <Info />
             </div>
-            <Info />
         </div>
     );
 };

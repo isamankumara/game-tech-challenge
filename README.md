@@ -14,10 +14,10 @@ First of all you have to add env variable. so rename the .env.sample to .env (de
 
 1.  Two service run separately 
     1. go to backend code
-    `npm install`
+     `npm install`
     
     2. run following code
-    `npm run dev`
+     `npm run dev`
 
 2.  using docker
 

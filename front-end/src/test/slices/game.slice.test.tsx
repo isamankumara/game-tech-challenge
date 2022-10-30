@@ -1,9 +1,10 @@
 import authSlice, { gameSlice } from "../../slices/game.slice";
-import { GameMode, IGame, PlayerType } from "../../types/game.type";
+import { GameMode, IGame, PlayerType,CurrentPlayer } from "../../types/game.type";
 
 const init: IGame = {
     stopUserInteraction: false,
     mode: GameMode.UserToComputer,
+    currentPlayer: CurrentPlayer.PlayerOne,
     winningPlayer: null,
     playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
     playerTwo: { name: "Player 1", point: 0, selection: "", playerType: PlayerType.PlayerTwo },
@@ -15,6 +16,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer(init, gameSlice.actions.userSelection({ selection: "rock", player: init.playerOne }))).toEqual({
             stopUserInteraction: true,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 0, selection: "", playerType: PlayerType.PlayerTwo },
@@ -27,6 +29,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer(init, gameSlice.actions.userSelection({ selection: "rock", player: init.playerTwo }))).toEqual({
             stopUserInteraction: true,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 0, selection: "rock", playerType: PlayerType.PlayerTwo },
@@ -39,6 +42,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer(init, gameSlice.actions.changeGameStatus({ status: 2 }))).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 0, selection: "", playerType: PlayerType.PlayerTwo },
@@ -56,6 +60,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer:null,
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "rock", playerType: PlayerType.PlayerTwo },
@@ -64,6 +69,7 @@ describe("Game Slice testing", () => {
         }, gameSlice.actions.checkWinnerWithReset({ }))).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "", playerType: PlayerType.PlayerTwo },
@@ -77,6 +83,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "paper", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "rock", playerType: PlayerType.PlayerTwo },
@@ -85,6 +92,7 @@ describe("Game Slice testing", () => {
         }, gameSlice.actions.checkWinnerWithReset({ }))).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 1, selection: "", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "", playerType: PlayerType.PlayerTwo },
@@ -97,6 +105,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
@@ -105,6 +114,7 @@ describe("Game Slice testing", () => {
         }, gameSlice.actions.checkWinnerWithReset({}))).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 2, selection: "", playerType: PlayerType.PlayerTwo },
@@ -117,6 +127,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
@@ -125,6 +136,7 @@ describe("Game Slice testing", () => {
         }, gameSlice.actions.resetToNextRound({ }))).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
@@ -137,6 +149,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer({
             stopUserInteraction: false,
             mode: GameMode.ComputerToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
@@ -145,6 +158,7 @@ describe("Game Slice testing", () => {
         }, gameSlice.actions.resetToNextRound({ }))).toEqual({
             stopUserInteraction: false,
             mode: GameMode.ComputerToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer:null,
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
@@ -157,6 +171,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer(init, gameSlice.actions.changeGameMode({ mode: GameMode.ComputerToComputer }))).toEqual({
             stopUserInteraction: true,
             mode: GameMode.ComputerToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "Player 1", point: 0, selection: "", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 2", point: 0, selection: "", playerType: PlayerType.PlayerTwo },
@@ -169,6 +184,7 @@ describe("Game Slice testing", () => {
         expect(authSlice.reducer(init, gameSlice.actions.changeGameMode({ mode: GameMode.UserToComputer }))).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
+            currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
             playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Computer", point: 0, selection: "", playerType: PlayerType.PlayerTwo },

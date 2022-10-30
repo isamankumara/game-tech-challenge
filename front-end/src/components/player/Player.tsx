@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { socket } from "../../App";
 import { options } from "../../constants/game.constants";
 import gameSlice from "../../slices/game.slice";
 import { GameType, ItemProps, IPlayerProps, Item, PlayerType, GameMode } from "../../types/game.type";
@@ -8,19 +9,28 @@ const ItemOption = (props: ItemProps) => {
     const game = useSelector((state: GameType) => state.game);
 
     const clickEvent = () => {
-        if (game.mode === GameMode.ComputerToComputer || props.player.playerType === PlayerType.PlayerTwo || game.stopUserInteraction) {
+        if ((game.mode === GameMode.ComputerToComputer || props.player.playerType === PlayerType.PlayerTwo || game.stopUserInteraction)) {
             return;
         }
-        dispatch(gameSlice.actions.userSelection({ selection: props.name, player: props.player }));
-        setTimeout(() => {
-            dispatch(gameSlice.actions.setAutomatedSelection({}));
-        }, 2000);
-        setTimeout(() => {
-            dispatch(gameSlice.actions.checkWinnerWithReset({}));
-        }, 4000);
-        setTimeout(() => {
-            dispatch(gameSlice.actions.resetToNextRound({}));
-        }, 6000);
+    
+        if (game.mode === GameMode.UserToUser) {
+            dispatch(gameSlice.actions.userSelection({ selection: props.name, player: props.player }));
+            socket.emit("send events", {event: 6, payload: { selection: props.name, player: props.player }}, (response: any) => {
+            });
+            
+        } else {
+            dispatch(gameSlice.actions.userSelection({ selection: props.name, player: props.player }));
+            setTimeout(() => {
+                dispatch(gameSlice.actions.setAutomatedSelection({}));
+            }, 1000);
+            setTimeout(() => {
+                dispatch(gameSlice.actions.checkWinnerWithReset({}));
+            }, 2000);
+            setTimeout(() => {
+                dispatch(gameSlice.actions.resetToNextRound({}));
+            }, 3000);
+        }
+
     };
 
     return (

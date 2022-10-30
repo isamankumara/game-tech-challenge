@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PLAYER_RESPONSE_DELAY } from "../constants/game.constants";
-import { GameMode, IGame, PlayerType } from "../types/game.type";
+import { CurrentPlayer, GameMode, IGame, PlayerType } from "../types/game.type";
 import { checkWinner, getRandomOption } from "../utils/logic.util";
 
 const init: IGame = {
     stopUserInteraction: false,
     mode: GameMode.UserToComputer,
+    currentPlayer: CurrentPlayer.PlayerOne,
     winningPlayer: null,
     playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
     playerTwo: { name: "Computer", point: 0, selection: "", playerType: PlayerType.PlayerTwo },
@@ -23,13 +24,39 @@ export const gameSlice = createSlice({
             } else {
                 state.playerTwo.selection = action.payload.selection;
             }
+
+            state.currentPlayer = CurrentPlayer.PlayerOne;
             state.stopUserInteraction = true;
+            if (action.payload.event === 7) {
+                state.stopUserInteraction = false;
+                state.currentPlayer = CurrentPlayer.PlayerTwo;
+            }
+        },
+        updateUserInteraction:(state, action) => {
+            state.stopUserInteraction = action.payload.stopUserInteraction;
+            if (action.payload.event === 7) {
+                state.message = "Please select your option";
+            }
+
         },
         setAutomatedSelection: (state, action) => {
             state.playerTwo.selection = getRandomOption();
         },
         changeGameStatus: (state, action) => {
+            console.log(action.payload)
             state.status = action.payload.status;
+            if (action.payload.status === 3) {
+                state.message = "Waiting for network user";
+            }
+            if (action.payload.status === 4) {
+                state.message = "You got network user you can start";
+                state.stopUserInteraction = false;
+            }
+
+            if (action.payload.status === 5) {
+                state.message = "You got network user. That user will start";
+                state.stopUserInteraction = false;
+            }
         },
         checkWinnerWithReset: (state, action) => {
             const winner = checkWinner(state.playerOne.selection!, state.playerTwo.selection!);
@@ -57,6 +84,12 @@ export const gameSlice = createSlice({
             if (state.mode !== GameMode.ComputerToComputer) {
                 state.stopUserInteraction = false;
                 state.winningPlayer = null;
+            }
+
+            if (state.mode == GameMode.UserToUser) {
+                
+                state.stopUserInteraction = (state.currentPlayer == 1);
+                state.message = (state.currentPlayer == 2) ? "you need start next round" :"other use will start next round";
             }
         },
         changeGameMode: (state, action) => {

@@ -9,6 +9,11 @@ export enum PlayerType {
     PlayerTwo,
 }
 
+export enum CurrentPlayer {
+    PlayerOne = 1,
+    PlayerTwo,
+}
+
 export interface IPlayer {
     name: string;
     point: number;
@@ -20,6 +25,7 @@ export interface IGame {
     mode: GameMode;
     playerOne: IPlayer;
     playerTwo: IPlayer;
+    currentPlayer: CurrentPlayer;
     stopUserInteraction: boolean;
     winningPlayer: IPlayer | null;
     message: string;

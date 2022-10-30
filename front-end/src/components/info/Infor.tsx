@@ -19,7 +19,7 @@ export const Info = () => {
             dispatch(gameSlice.actions.changeGameStatus({ status: 2 }));
             return;
         }
-/*
+
         dispatch(gameSlice.actions.changeGameStatus({ status: 1 }));
         dispatch(gameSlice.actions.userSelection({ selection: getRandomOption(), player: game.playerOne }));
         timerRef.current = window.setTimeout(() => {
@@ -34,12 +34,12 @@ export const Info = () => {
             dispatch(gameSlice.actions.resetToNextRound({}));
             autoStact();
         }, 1000 * NEXT_ROUND_RESPONSE_DELAY);
-        */
+        
     };
 
     const reset = () => {
         if (game.status == 2) {
-           // dispatch(gameSlice.actions.changeGameMode({ mode: GameMode.UserToComputer }));
+           dispatch(gameSlice.actions.changeGameMode({ mode: GameMode.UserToComputer }));
         }
     };
 
@@ -56,12 +56,12 @@ export const Info = () => {
             <div>{game.message}</div>
             {game.mode === GameMode.ComputerToComputer && (
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <div data-testid={"callAutoStart"} onClick={autoStact} style={{ margin: 10 }}>
+                    {game.status != 3 && <><div data-testid={"callAutoStart"} onClick={autoStact} style={{ margin: 10 }}>
                         {game.status == 1 ? "Stop" : "Start"}
                     </div>
                     <div onClick={reset} style={{ margin: 10 }}>
                         reset
-                    </div>
+                    </div></>}
                 </div>
             )}
         </>

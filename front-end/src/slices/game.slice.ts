@@ -121,6 +121,7 @@ export const gameSlice = createSlice({
             state.playerTwo.point = 0;
             state.playerOne.selection = "";
             state.playerTwo.selection = "";
+            state.status = 0;
         },
         updateUserTwoDisply: (state, action) => {
             state.playerTwo.displaySelection = true;

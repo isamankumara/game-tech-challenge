@@ -33,10 +33,13 @@ const ItemOption = (props: ItemProps) => {
     return (
         <div
             onClick={clickEvent}
-            className={props.name === props.player.selection ? props.name + "-item Item selected-item" : props.name + "-item Item"}
+            className={
+                props.name === props.player.selection && props.player.displaySelection ? props.name + "-item Item selected-item" : props.name + "-item Item"
+            }
             style={{ border: "1px solid red", margin: "10px", padding: "10px" }}
         >
             {props.name}
+            {"-" + props.player.displaySelection}
         </div>
     );
 };
@@ -45,6 +48,7 @@ export const Player = (props: IPlayerProps) => {
     const dispatch = useDispatch();
     const game = useSelector((state: GameType) => state.game);
     const player = props.playerType == PlayerType.PlayerOne ? game.playerOne : game.playerTwo;
+    console.log(player);
     return (
         <div>
             <div>{player.name}</div>

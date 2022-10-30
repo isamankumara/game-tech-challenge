@@ -8,8 +8,8 @@ const init: IGame = {
     mode: GameMode.UserToComputer,
     currentPlayer: CurrentPlayer.PlayerOne,
     winningPlayer: null,
-    playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne },
-    playerTwo: { name: "Computer", point: 0, selection: "", playerType: PlayerType.PlayerTwo },
+    playerOne: { name: "You", point: 0, selection: "", playerType: PlayerType.PlayerOne, displaySelection: true },
+    playerTwo: { name: "Computer", point: 0, selection: "", playerType: PlayerType.PlayerTwo, displaySelection: true },
     message: "",
     status: 0,
 };
@@ -30,6 +30,12 @@ export const gameSlice = createSlice({
             if (action.payload.event === 7) {
                 state.stopUserInteraction = false;
                 state.currentPlayer = CurrentPlayer.PlayerTwo;
+                state.playerTwo.displaySelection = false;
+                console.log("here");
+            } else {
+                if (state.playerOne.displaySelection && state.playerOne.selection != "") {
+                    state.playerTwo.displaySelection = true;
+                }
             }
         },
         updateUserInteraction: (state, action) => {
@@ -109,6 +115,9 @@ export const gameSlice = createSlice({
             state.playerTwo.point = 0;
             state.playerOne.selection = "";
             state.playerTwo.selection = "";
+        },
+        updateUserTwoDisply: (state, action) => {
+            state.playerTwo.displaySelection = true;
         },
     },
 });

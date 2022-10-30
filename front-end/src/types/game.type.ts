@@ -1,7 +1,7 @@
 export enum GameMode {
     UserToComputer = 1,
     ComputerToComputer,
-    UserToUser
+    UserToUser,
 }
 
 export enum PlayerType {
@@ -19,6 +19,7 @@ export interface IPlayer {
     point: number;
     selection: string | null;
     playerType: PlayerType;
+    displaySelection: boolean;
 }
 
 export interface IGame {

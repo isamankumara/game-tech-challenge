@@ -34,6 +34,7 @@ const Wrap = () => {
             console.log(res.payload.player);
             var player = res.payload.player;
             player.playerType = 2;
+
             dispatch(gameSlice.actions.userSelection({ selection: res.payload.selection, player: player, event: res.event }));
 
             setTimeout(() => {
@@ -50,7 +51,7 @@ const Wrap = () => {
 
     useEffect(() => {
         if (game.mode === GameMode.UserToUser) {
-            if (game.playerOne.selection != "" && game.playerTwo.selection != "") {
+            if (game.playerOne.selection != "" && game.playerTwo.selection != "" && game.playerTwo.displaySelection) {
                 setTimeout(() => {
                     dispatch(gameSlice.actions.checkWinnerWithReset({}));
                 }, 1000);

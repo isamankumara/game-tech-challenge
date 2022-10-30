@@ -52,6 +52,12 @@ export const gameSlice = createSlice({
             state.status = action.payload.status;
             if (action.payload.status === 3) {
                 state.message = "Waiting for network user";
+
+                state.playerOne.selection = "";
+                state.playerTwo.selection = "";
+                state.winningPlayer = null;
+                state.playerOne.point = 0;
+                state.playerTwo.point = 0;
             }
             if (action.payload.status === 4) {
                 state.message = "You got network user you can start";
@@ -60,7 +66,7 @@ export const gameSlice = createSlice({
 
             if (action.payload.status === 5) {
                 state.message = "You got network user. That user will start";
-                state.stopUserInteraction = false;
+                state.stopUserInteraction = true;
             }
         },
         checkWinnerWithReset: (state, action) => {

@@ -51,7 +51,7 @@ const Wrap = () => {
 
     useEffect(() => {
         if (game.mode === GameMode.UserToUser) {
-            if (game.playerOne.selection != "" && game.playerTwo.selection != "" && game.playerTwo.displaySelection) {
+            if (game.playerOne.selection != "" && game.playerTwo.selection != "") {
                 setTimeout(() => {
                     dispatch(gameSlice.actions.checkWinnerWithReset({}));
                 }, 1000);

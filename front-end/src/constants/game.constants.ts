@@ -6,10 +6,8 @@ export const NEXT_ROUND_RESPONSE_DELAY = 3;
 
 export const options = ["rock", "paper", "scissors"];
 
-export const winningOptions :  IWinningOptions = {
+export const winningOptions: IWinningOptions = {
     rock_scissors: "rock",
     rock_paper: "paper",
     paper_scissors: "scissors",
 };
-
-

@@ -32,18 +32,17 @@ export const gameSlice = createSlice({
                 state.currentPlayer = CurrentPlayer.PlayerTwo;
             }
         },
-        updateUserInteraction:(state, action) => {
+        updateUserInteraction: (state, action) => {
             state.stopUserInteraction = action.payload.stopUserInteraction;
             if (action.payload.event === 7) {
                 state.message = "Please select your option";
             }
-
         },
         setAutomatedSelection: (state, action) => {
             state.playerTwo.selection = getRandomOption();
         },
         changeGameStatus: (state, action) => {
-            console.log(action.payload)
+            console.log(action.payload);
             state.status = action.payload.status;
             if (action.payload.status === 3) {
                 state.message = "Waiting for network user";
@@ -87,9 +86,8 @@ export const gameSlice = createSlice({
             }
 
             if (state.mode == GameMode.UserToUser) {
-                
-                state.stopUserInteraction = (state.currentPlayer == 1);
-                state.message = (state.currentPlayer == 2) ? "you need start next round" :"other use will start next round";
+                state.stopUserInteraction = state.currentPlayer == 1;
+                state.message = state.currentPlayer == 2 ? "you need start next round" : "other use will start next round";
             }
         },
         changeGameMode: (state, action) => {
@@ -98,7 +96,7 @@ export const gameSlice = createSlice({
                 state.playerOne.name = "Player 1";
                 state.playerTwo.name = "Player 2";
                 state.stopUserInteraction = true;
-            }else if (state.mode === GameMode.UserToUser) {
+            } else if (state.mode === GameMode.UserToUser) {
                 state.playerOne.name = "You";
                 state.playerTwo.name = "Network User";
                 state.stopUserInteraction = true;

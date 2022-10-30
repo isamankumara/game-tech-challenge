@@ -1,5 +1,5 @@
 import authSlice, { gameSlice } from "../../slices/game.slice";
-import { GameMode, IGame, PlayerType,CurrentPlayer } from "../../types/game.type";
+import { GameMode, IGame, PlayerType, CurrentPlayer } from "../../types/game.type";
 
 const init: IGame = {
     stopUserInteraction: false,
@@ -57,16 +57,21 @@ describe("Game Slice testing", () => {
     });
 
     test("test the tie", () => {
-        expect(authSlice.reducer({
-            stopUserInteraction: false,
-            mode: GameMode.UserToComputer,
-            currentPlayer: CurrentPlayer.PlayerOne,
-            winningPlayer:null,
-            playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
-            playerTwo: { name: "Player 1", point: 1, selection: "rock", playerType: PlayerType.PlayerTwo },
-            message: "",
-            status: 0,
-        }, gameSlice.actions.checkWinnerWithReset({ }))).toEqual({
+        expect(
+            authSlice.reducer(
+                {
+                    stopUserInteraction: false,
+                    mode: GameMode.UserToComputer,
+                    currentPlayer: CurrentPlayer.PlayerOne,
+                    winningPlayer: null,
+                    playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
+                    playerTwo: { name: "Player 1", point: 1, selection: "rock", playerType: PlayerType.PlayerTwo },
+                    message: "",
+                    status: 0,
+                },
+                gameSlice.actions.checkWinnerWithReset({})
+            )
+        ).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
             currentPlayer: CurrentPlayer.PlayerOne,
@@ -78,18 +83,22 @@ describe("Game Slice testing", () => {
         });
     });
 
-    
     test("test check  rock and paper", () => {
-        expect(authSlice.reducer({
-            stopUserInteraction: false,
-            mode: GameMode.UserToComputer,
-            currentPlayer: CurrentPlayer.PlayerOne,
-            winningPlayer: null,
-            playerOne: { name: "You", point: 0, selection: "paper", playerType: PlayerType.PlayerOne },
-            playerTwo: { name: "Player 1", point: 1, selection: "rock", playerType: PlayerType.PlayerTwo },
-            message: "",
-            status: 0,
-        }, gameSlice.actions.checkWinnerWithReset({ }))).toEqual({
+        expect(
+            authSlice.reducer(
+                {
+                    stopUserInteraction: false,
+                    mode: GameMode.UserToComputer,
+                    currentPlayer: CurrentPlayer.PlayerOne,
+                    winningPlayer: null,
+                    playerOne: { name: "You", point: 0, selection: "paper", playerType: PlayerType.PlayerOne },
+                    playerTwo: { name: "Player 1", point: 1, selection: "rock", playerType: PlayerType.PlayerTwo },
+                    message: "",
+                    status: 0,
+                },
+                gameSlice.actions.checkWinnerWithReset({})
+            )
+        ).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
             currentPlayer: CurrentPlayer.PlayerOne,
@@ -102,16 +111,21 @@ describe("Game Slice testing", () => {
     });
 
     test("test check paper and rock", () => {
-        expect(authSlice.reducer({
-            stopUserInteraction: false,
-            mode: GameMode.UserToComputer,
-            currentPlayer: CurrentPlayer.PlayerOne,
-            winningPlayer: null,
-            playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
-            playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
-            message: "",
-            status: 0,
-        }, gameSlice.actions.checkWinnerWithReset({}))).toEqual({
+        expect(
+            authSlice.reducer(
+                {
+                    stopUserInteraction: false,
+                    mode: GameMode.UserToComputer,
+                    currentPlayer: CurrentPlayer.PlayerOne,
+                    winningPlayer: null,
+                    playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
+                    playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
+                    message: "",
+                    status: 0,
+                },
+                gameSlice.actions.checkWinnerWithReset({})
+            )
+        ).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
             currentPlayer: CurrentPlayer.PlayerOne,
@@ -124,16 +138,21 @@ describe("Game Slice testing", () => {
     });
 
     test("test reset to next round", () => {
-        expect(authSlice.reducer({
-            stopUserInteraction: false,
-            mode: GameMode.UserToComputer,
-            currentPlayer: CurrentPlayer.PlayerOne,
-            winningPlayer: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
-            playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
-            playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
-            message: "please start next round",
-            status: 0,
-        }, gameSlice.actions.resetToNextRound({ }))).toEqual({
+        expect(
+            authSlice.reducer(
+                {
+                    stopUserInteraction: false,
+                    mode: GameMode.UserToComputer,
+                    currentPlayer: CurrentPlayer.PlayerOne,
+                    winningPlayer: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
+                    playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
+                    playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
+                    message: "please start next round",
+                    status: 0,
+                },
+                gameSlice.actions.resetToNextRound({})
+            )
+        ).toEqual({
             stopUserInteraction: false,
             mode: GameMode.UserToComputer,
             currentPlayer: CurrentPlayer.PlayerOne,
@@ -146,20 +165,25 @@ describe("Game Slice testing", () => {
     });
 
     test("test reset to next round - computer to computer mode", () => {
-        expect(authSlice.reducer({
+        expect(
+            authSlice.reducer(
+                {
+                    stopUserInteraction: false,
+                    mode: GameMode.ComputerToComputer,
+                    currentPlayer: CurrentPlayer.PlayerOne,
+                    winningPlayer: null,
+                    playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
+                    playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
+                    message: "please start next round",
+                    status: 0,
+                },
+                gameSlice.actions.resetToNextRound({})
+            )
+        ).toEqual({
             stopUserInteraction: false,
             mode: GameMode.ComputerToComputer,
             currentPlayer: CurrentPlayer.PlayerOne,
             winningPlayer: null,
-            playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
-            playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
-            message: "please start next round",
-            status: 0,
-        }, gameSlice.actions.resetToNextRound({ }))).toEqual({
-            stopUserInteraction: false,
-            mode: GameMode.ComputerToComputer,
-            currentPlayer: CurrentPlayer.PlayerOne,
-            winningPlayer:null,
             playerOne: { name: "You", point: 0, selection: "rock", playerType: PlayerType.PlayerOne },
             playerTwo: { name: "Player 1", point: 1, selection: "paper", playerType: PlayerType.PlayerTwo },
             message: "please start next round",

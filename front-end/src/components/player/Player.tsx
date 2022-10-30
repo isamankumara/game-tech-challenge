@@ -9,15 +9,13 @@ const ItemOption = (props: ItemProps) => {
     const game = useSelector((state: GameType) => state.game);
 
     const clickEvent = () => {
-        if ((game.mode === GameMode.ComputerToComputer || props.player.playerType === PlayerType.PlayerTwo || game.stopUserInteraction)) {
+        if (game.mode === GameMode.ComputerToComputer || props.player.playerType === PlayerType.PlayerTwo || game.stopUserInteraction) {
             return;
         }
-    
+
         if (game.mode === GameMode.UserToUser) {
             dispatch(gameSlice.actions.userSelection({ selection: props.name, player: props.player }));
-            socket.emit("send events", {event: 6, payload: { selection: props.name, player: props.player }}, (response: any) => {
-            });
-            
+            socket.emit("send events", { event: 6, payload: { selection: props.name, player: props.player } }, (response: any) => {});
         } else {
             dispatch(gameSlice.actions.userSelection({ selection: props.name, player: props.player }));
             setTimeout(() => {
@@ -30,7 +28,6 @@ const ItemOption = (props: ItemProps) => {
                 dispatch(gameSlice.actions.resetToNextRound({}));
             }, 3000);
         }
-
     };
 
     return (

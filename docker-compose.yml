@@ -1,0 +1,38 @@
+version: "3"
+services:
+    front-end:
+        build:
+            context: ./front-end
+            dockerfile: Dockerfile
+        volumes:
+            - ./front-end/src:/app/src
+            - ./front-end/public:/app/public
+            - ./front-end/package.json:/app/package.json
+            - ./front-end/.env:/app/.env
+            - ./front-end/tsconfig.json:/app/tsconfig.json
+
+        ports:
+            - 4000:3000
+        expose:
+            - "4000"
+        stdin_open: true
+        networks:
+            - private
+
+    backend:
+        build:
+            context: ./back-end
+            dockerfile: Dockerfile
+        container_name: backend
+        volumes:
+            - ./back-end:/app
+        ports:
+            - 3000:3000
+        expose:
+            - "3000"
+        networks:
+            - private
+
+networks:
+    private:
+        driver: bridge

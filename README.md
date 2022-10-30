@@ -12,16 +12,17 @@ How to run the development env:
 
 First of all you have to add env variable. so rename the .env.sample to .env (default values works with fine)
 
-1.  Two service run separately 
+1.  Two service run separately
+
     1. go to backend code
-     `npm install`
-    
+       `npm install`
+
     2. run the code
-     `npm run dev`
+       `npm run dev`
 
 2.  using docker
 
-       1. go to the root folder and run the command
+    1. go to the root folder and run the command
 
     `docker-compose up`
 
@@ -31,3 +32,6 @@ First of all you have to add env variable. so rename the .env.sample to .env (de
     1. you and computer
     2. you can see as a viewer and computer will play
     3. you can play with another network user
+
+Backend port : 3000
+Frontend port : 4000

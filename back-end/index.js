@@ -67,9 +67,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on("send events", (param, callback) => {
-        console.log("event", param.event, socket.id)
+        console.log("event", param.event, socket.id, "_", waitingUser)
 
         if (param.event == 1) {
+
+            if (waitingUser == socket.id) {
+                return;
+            }
             if (waitingUser != "") {
                 groupUsers.push({ userOne: socket.id, userTwo: waitingUser });
                 socket.to(waitingUser).emit('send events', { event: 4 })

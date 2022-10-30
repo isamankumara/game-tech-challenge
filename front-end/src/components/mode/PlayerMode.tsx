@@ -12,11 +12,13 @@ export const PlayerMode = (props: PlayerModeProps) => {
             className={game.mode !== props.mode ? "GameMode" : "GameMode selectedMode"}
             onClick={() => {
                 dispatch(gameSlice.actions.changeGameMode({ mode: props.mode }));
-                socket.emit("send events", { event: 1 }, (response: any) => {
-                    if (response.event > 2) {
-                        dispatch(gameSlice.actions.changeGameStatus({ status: response.event }));
-                    }
-                });
+                if (props.mode == GameMode.UserToUser) {
+                    socket.emit("send events", { event: 1 }, (response: any) => {
+                        if (response.event > 2) {
+                            dispatch(gameSlice.actions.changeGameStatus({ status: response.event }));
+                        }
+                    });
+                }
             }}
         >
             {props.children}

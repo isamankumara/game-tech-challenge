@@ -12,8 +12,11 @@ How to run the development env:
 
 First of all you have to add env variable. so rename the .env.sample to .env (default values works with fine)
 
-1.  Two service run separately 1. go to backend code
-    `npm install` 2. run following code
+1.  Two service run separately 
+    1. go to backend code
+    `npm install`
+    
+    2. run following code
     `npm run dev`
 
 2.  using docker

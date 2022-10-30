@@ -16,12 +16,12 @@ First of all you have to add env variable. so rename the .env.sample to .env (de
     1. go to backend code
      `npm install`
     
-    2. run following code
+    2. run the code
      `npm run dev`
 
 2.  using docker
 
-        1. go to the root folder and run the follwing commond
+       1. go to the root folder and run the command
 
     `docker-compose up`
 
